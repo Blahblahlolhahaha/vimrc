@@ -12,6 +12,8 @@ set wildmode=list:longest
 set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
 set termwinsize=30x200
 set mouse=a
+set encoding=UTF-8
+set guifont=RobotoMono\ Nerd\ Font\ 11
 
 " PLUGINS ---------------------------------------------------------------- {{{
 
@@ -25,7 +27,15 @@ call plug#begin('~/.vim/plugged')
     Plug 'prabirshrestha/asyncomplete.vim'
     Plug 'prabirshrestha/asyncomplete-lsp.vim'
     Plug 'wadackel/vim-dogrun'
+    Plug 'vim-airline/vim-airline'
+    Plug 'vim-airline/vim-airline-themes'
+    Plug 'ryanoasis/vim-devicons'
+    Plug 'voldikss/vim-floaterm'
+    Plug 'Xuyuanp/nerdtree-git-plugin'
+    Plug 'euclio/vim-markdown-composer'
 call plug#end()
+
+
 
 " }}}
 colorscheme dogrun
@@ -41,14 +51,18 @@ highlight ALEError ctermfg=Black
 nnoremap <C-n> :NERDTreeToggle<CR>
 nnoremap ff    <C-f>
 nnoremap <C-S-j> :!javac *.java --Xlint:unchecked --Xlint:rawtypes
-nnoremap <silent> <C-t> :belowright terminal ++rows=15<CR>  i
+nnoremap <silent> <C-t> :belowright terminal ++rows=15<CR>
+nnoremap <C-s> :w<CR>
+nnoremap <C-S-P> :ComposerStart<CR>
 
-inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <S-Tab> <C-d>
+inoremap <Tab> <C-t>
+inoremap <expr> <C-m> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
 inoremap <expr> <cr> pumvisible() ? asyncomplete#close_popup() . "\<cr>" : "\<cr>"
 inoremap <C-w> <esc><C-W>wi
-tnoremap <Esc><Esc> <C-w><S-n> 
+inoremap <C-S-P> <esc> :ComposerUpdate <CR> i
+tnoremap <Esc><Esc> <C-w><S-n>
 " }}}
 
 " vim-lsp ---------------------------------------------------------------- {{{
@@ -91,4 +105,9 @@ augroup lsp_install
 augroup END
 "}}}
 
-
+let g:airline_theme='onedark'
+let g:floaterm_keymap_new    = '<F7>'
+let g:floaterm_keymap_prev   = '<F8>'
+let g:floaterm_keymap_next   = '<F9>'
+let g:floaterm_keymap_toggle = '<F12>'
+let g:markdown_composer_autostart = 0
